@@ -68,7 +68,7 @@ void trim_after_n_bits(int n, unsigned long long* value){
 
 void print_n_bits(int n, unsigned long long m){
     int size = n;
-    int* output = malloc(sizeof(int)*size);
+    int* output = malloc(sizeof(int)*(size+1));
     while(n > 0){
         output[n] = (int)(m % 2);
         m /= 2;
@@ -77,6 +77,7 @@ void print_n_bits(int n, unsigned long long m){
     for(int i = 1; i <= size; i++){
         printf("%i", output[i]);
     }
+    free(output);
 }
 
 int scan_bits(unsigned long long* destination){
