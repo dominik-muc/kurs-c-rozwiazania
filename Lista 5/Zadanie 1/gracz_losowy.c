@@ -1,0 +1,1 @@
+#include "gracz_losowy.h"

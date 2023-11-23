@@ -3,16 +3,9 @@
         {
             "type": "cppbuild",
             "label": "C/C++: gcc build active file",
-            "command": "/usr/bin/gcc",
+            "command": "/usr/local/bin/gcc",
             "args": [
                 "-fdiagnostics-color=always",
-                "-std=c11",
-                "-Wall",
-                "-Wextra",
-                "-Werror",
-                "-Wpedantic",
-                "-xc",
-                "-lm",
                 "-g",
                 "${file}",
                 "-o",
