@@ -1,3 +1,6 @@
+//Dominik Muc, 345952, Lista 5 zadanie 1
+#pragma once
+
 #include "plansza.h"
 
-Coordinates get_stupid_move(Symbol my_symbol, char** board);
+Field get_stupid_move(long side, char** board);

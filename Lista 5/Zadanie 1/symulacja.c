@@ -1,3 +1,4 @@
+//Dominik Muc, 345952, Lista 5 zadanie 1
 #include "plansza.h"
 #include "gracz_losowy.h"
 #include "gracz_ze_strategia.h"
@@ -9,44 +10,57 @@ int main(int argc, char** argv){
 
     if(argc > 2){
         fprintf(stderr, "Zbyt dużo argumentów! Program przyjmuje jeden argument będący liczbą naturalną dodatnią.\n");
-        return 255;
+        return 0xFF;
     }
     if(argc == 2){
         char* dump = NULL;
         long input = strtol(argv[1], &dump, 0);
         if(dump[0] || input <= 0){
             fprintf(stderr, "Niepoprawny argument! Program przyjmuje jeden argument będący liczbą naturalną dodatnią.\n");
-            return 255;
+            return 0xFF;
         }
         n = input;
     }
 
     char** board = initialize_board(n);
-    Symbol player_on_move = rand() % 2;
-    int result = 2;
+    OnMove player_on_move = rand() % 2;
+    GameState state = ONGOING;
 
 
-    while(result == 2)
+    while(state == ONGOING)
     {
-        Coordinates move_coords;
-        if(player_on_move == 0){
-            move_coords = get_stupid_move(CIRCLE, board);
-        }
-        else{
-            move_coords = get_smart_move(CROSS, board);
-        }
-        result = move(player_on_move, move_coords, board);
+        Field move_coords;
+        if(player_on_move == CIRCLE) move_coords = get_stupid_move(n, board);
+        else move_coords = get_smart_move(CROSS, n, board);
+
+        state = move(player_on_move, move_coords, n, board);
         
-        show_board(stdin, board);
+        system("clear||cls");
+        show_board(n, board);
+        printf("Nacisnij dowolny klawisz żeby kontynuować.");
         getchar();
         
         player_on_move = !player_on_move;
     }
 
-    if(result == 0){
-        printf("Gracz kółko (głupi) wygrał.\n");
-        return 0;
+    free_board(n, board);
+
+    switch(state){
+        case DRAW:
+            printf("Remis.\n");
+            break;
+        case CIRCLE_WIN:
+            printf("Gracz kółko (głupi) wygrał.\n");
+            break;
+        case CROSS_WIN:
+            printf("Gracz krzyżyk (mądry) wygrał.\n");
+            break;
+        case WRONG_MOVE:
+            printf("Niedozwolony ruch!\n");
+            break;
+        default:
+            fprintf(stderr, "Wystąpił błąd programu.\n");
+            return 0xFF;
     }
-    printf("Gracz krzyżyk (mądry) wygrał.\n");
     return 0;
 }

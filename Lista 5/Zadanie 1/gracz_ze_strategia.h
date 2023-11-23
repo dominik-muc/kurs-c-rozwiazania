@@ -1,3 +1,6 @@
+//Dominik Muc, 345952, Lista 5 zadanie 1
+#pragma once
+
 #include "plansza.h"
 
-Coordinates get_smart_move(Symbol my_symbol, char** board);
+Field get_smart_move(OnMove on_move, long side, char** board);
