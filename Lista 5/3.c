@@ -13,8 +13,6 @@ int main(){
     char carpet[11];
     scanf("%i %s %i %i", &d, carpet, &n, &m);
 
-    if(d != 9) return 0;
-
     int x = 0;
     int y = 0;
     int p = pow_of_3[d];
@@ -34,7 +32,6 @@ int main(){
 
     //spirala
     if(n == 0){
-        sleep(1000);
         rle(carpet[get_layer(d, 0, 0)], &previous_sign, &counter);
         if(d > 0) counter += 2 * p + 2 * (p - 2) - 1;
         for(int i = 1; i < p / 2 + 1; i++){
