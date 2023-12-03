@@ -17,7 +17,7 @@ int rectangle_sum(int** sums, int params[4]);
 void print_spaces(int n);
 int len(int number);
 int parse_input(int params[4], int n, int m);
-void malloc_exception();
+void failed_to_create_object_exception();
 
 int main(int argc, char** argv){
     if(argc != 3){
@@ -26,7 +26,7 @@ int main(int argc, char** argv){
     }
     long* args = (long*)malloc(sizeof(int) * 2);
 
-    if(!args) malloc_exception();
+    if(!args) failed_to_create_object_exception();
 
     for(int i = 0; i <= 1; i++){
         char* dump = NULL;
@@ -43,7 +43,7 @@ int main(int argc, char** argv){
     srand(time(NULL));
 
     int** sums = (int**)malloc(sizeof(int*) * n);
-    if(!sums) malloc_exception();
+    if(!sums) failed_to_create_object_exception();
 
     int** array = initialize_array(n, m, sums);
 
@@ -68,7 +68,7 @@ int main(int argc, char** argv){
 
 int** initialize_array(int n, int m, int** sums){
     int** array = (int**)malloc(sizeof(int*) * n);
-    if(!array) malloc_exception();
+    if(!array) failed_to_create_object_exception();
     int a = (rand() % 996) + 1;
     int b = (rand() % 996) + 1;
 
@@ -82,9 +82,9 @@ int** initialize_array(int n, int m, int** sums){
     }
     for(int i = 1; i < n; i++){
         array[i] = (int*)malloc(sizeof(int) * m);
-        if(!array[i]) malloc_exception();
+        if(!array[i]) failed_to_create_object_exception();
         sums[i] = (int*)malloc(sizeof(int) * m);
-        if(!sums[i]) malloc_exception();
+        if(!sums[i]) failed_to_create_object_exception();
 
         array[i][0] = (a * (i * m) + b) % 997;
         sums[i][0] = sums[i - 1][0] + array[i][0];
@@ -169,7 +169,7 @@ int parse_input(int params[4], int n, int m){
     }
 }
 
-void malloc_exception(){
+void failed_to_create_object_exception(){
     fprintf(stderr, BOLD RED "Błąd alokacji pamięci! Program zakończył działanie.\n" RESET);
     exit(0xFF);
 }
