@@ -11,7 +11,8 @@
 #define RESET "\x1b[0m"
 #define DELIMITERS " \t\r\n\v\f"
 
-int** initialize_array(int n, int m, int** sums);
+int **initialize_array(int n, int m, int **sums);
+void print_colored_table(int n, int m, int params[4], int **array);
 void free_array(int n, int** array);
 int rectangle_sum(int** sums, int params[4]);
 void print_spaces(int n);
@@ -50,20 +51,24 @@ int main(int argc, char** argv){
     int params[4] = {0};
     do{
         system("clear||cls");
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < m; j++){
-                if(i >= params[0] && i <= params[2] && j >= params[1] && j <= params[3]) printf(BOLD GREEN);
-                print_spaces(3 - len(array[i][j]));
-                printf("%i " RESET, array[i][j]);
-            }
-            putchar('\n');
-        }
+        print_colored_table(n, m, params, array);
         printf(BOLD GREEN "Suma: %i\n" RESET, rectangle_sum(sums, params));    
     }while(parse_input(params, n, m));
 
     free_array(n, array);
     free_array(n, sums);
     return 0;
+}
+
+void print_colored_table(int n, int m, int params[4], int **array){
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < m; j++){
+            if (i >= params[0] && i <= params[2] && j >= params[1] && j <= params[3]) printf(BOLD GREEN);
+            print_spaces(3 - len(array[i][j]));
+            printf("%i " RESET, array[i][j]);
+        }
+        putchar('\n');
+    }
 }
 
 int** initialize_array(int n, int m, int** sums){
