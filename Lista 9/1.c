@@ -3,9 +3,9 @@
 #include "text_aligner.h"
 
 void bad_argument(char* arg);
-void stream_null(char* arg);
 void no_parameter();
 void direction_set();
+void stream_null();
 void reoccuring_flag(char* arg);
 
 int main(int argc, char** argv){
@@ -23,11 +23,11 @@ int main(int argc, char** argv){
                 if(file_set) reoccuring_flag(argv[i]);
                 if(++i == argc) no_parameter();
                 input = fopen(argv[i], "r");
-                if(!input) stream_null(argv[i]);
+                if(!input) stream_null();
                 file_set = 1;
                 break;
             case 'w':
-                if(file_set) reoccuring_flag(argv[i]);
+                if(width_set) reoccuring_flag(argv[i]);
                 if(++i == argc) no_parameter();
                 char* dump;
                 width = (int)strtol(argv[i], &dump, 10);
@@ -47,7 +47,7 @@ int main(int argc, char** argv){
         }
     }
 
-    int exit_code = text_align(input, stdout, width, direction);
+    int exit_code = text_align(input, width, direction);
 
     switch(exit_code){
         case 0:
@@ -63,7 +63,7 @@ void bad_argument(char* arg){
     exit(EXIT_FAILURE);
 }
 
-void stream_null(char* arg){
+void stream_null(){
     perror("Nie udało się otworzyć pliku");
     exit(EXIT_FAILURE);
 }

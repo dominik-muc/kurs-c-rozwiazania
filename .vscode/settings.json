@@ -1,11 +1,6 @@
 {
-<<<<<<< Updated upstream
-    "C_Cpp.errorSquiggles": "disabled"
-=======
-    "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "stdlib.h": "c",
+        "stdio.h": "c",
         "text_aligner.h": "c"
     }
->>>>>>> Stashed changes
 }
