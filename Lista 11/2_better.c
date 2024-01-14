@@ -30,6 +30,11 @@ int main(){
             depth++;
             distance += iter.value;
             iter = tree[iter.parent];
+            if(iter.distance != 0){
+                distance += iter.distance;
+                depth += iter.depth;
+                break;
+            }
         }
         tree[i].depth = depth;
         tree[i].distance = distance;
@@ -44,7 +49,7 @@ int main(){
 
         int distance = tree[a].distance + tree[b].distance - 2*tree[lca(tree, a, b)].distance;
 
-        if(distance > 0) printf("%i\n", distance);
+        if(distance >= 0) printf("%i\n", distance);
         else printf("mission impossible\n");
     }
 }
